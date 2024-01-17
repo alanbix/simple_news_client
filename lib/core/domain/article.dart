@@ -1,31 +1,31 @@
-class Article {
-  final Source source;
-  final String? author;
-  final String title;
-  final String? description;
-  final String url;
-  final String? urlToImage;
-  final DateTime publishedAt;
-  final String? content;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Article(
-    this.source,
-    this.author,
-    this.title,
-    this.description,
-    this.url,
-    this.urlToImage,
-    this.publishedAt,
-    this.content,
-  );
+part 'article.freezed.dart';
+part 'article.g.dart';
+
+@freezed
+class Article with _$Article {
+  const factory Article({
+    required String title,
+    required String url,
+    required DateTime publishedAt,
+    required Source source,
+    String? author,
+    String? description,
+    String? urlToImage,
+    String? content,
+  }) = _Article;
+
+  factory Article.fromJson(Map<String, dynamic> json) =>
+      _$ArticleFromJson(json);
 }
 
-class Source {
-  final String? id;
-  final String name;
+@freezed
+class Source with _$Source {
+  const factory Source({
+    required String name,
+    String? id,
+  }) = _Source;
 
-  Source(
-    this.id,
-    this.name,
-  );
+  factory Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
 }
