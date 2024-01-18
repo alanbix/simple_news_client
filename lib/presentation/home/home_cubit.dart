@@ -23,15 +23,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _fetchSources() async {
     final sources = await _getSources();
+    emit(state.copyWith(sources: sources));
 
-    emit(state.copyWith(
-      sources: sources,
-    ));
-
-    await getTopHeadlines(sources.first);
+    if (sources.isNotEmpty) {
+      getTopHeadlines(sources.first);
+    }
   }
 
   Future<void> getTopHeadlines(Source source) async {
+    emit(state.copyWith(isLoading: true));
     final articles = await _getTopHeadlines(sourceId: source.id);
 
     emit(state.copyWith(

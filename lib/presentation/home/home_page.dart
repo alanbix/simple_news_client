@@ -29,37 +29,61 @@ class _HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      body: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              Visibility(
-                visible: state.isLoading,
-                child: const LinearProgressIndicator(),
-              ),
-              DropdownMenu(
-                dropdownMenuEntries: state.sources
-                    .map<DropdownMenuEntry<Source>>((Source source) {
-                  return DropdownMenuEntry<Source>(
-                    value: source,
-                    label: source.name,
-                  );
-                }).toList(),
-              ),
-              Scrollbar(
-                child: ListView.builder(
-                  itemCount: state.articles.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(state.articles[index].title),
-                    );
-                  },
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                Visibility(
+                  visible: state.isLoading,
+                  child: const LinearProgressIndicator(),
                 ),
-              ),
-            ],
-          );
-        },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text('Source:'),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: DropdownMenu(
+                        initialSelection: state.sources.firstOrNull,
+                        onSelected: (source) {
+                          if (source != null) {
+                            context.cubit.getTopHeadlines(source);
+                          }
+                        },
+                        dropdownMenuEntries: state.sources
+                            .map<DropdownMenuEntry<Source>>((Source source) {
+                          return DropdownMenuEntry<Source>(
+                            value: source,
+                            label: source.name,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      itemCount: state.articles.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(state.articles[index].title),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
+}
+
+extension on BuildContext {
+  HomeCubit get cubit => read<HomeCubit>();
 }
