@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_news_client/core/domain/source.dart';
 import 'package:simple_news_client/di/di.dart';
 
 import 'home_cubit.dart';
@@ -30,9 +31,21 @@ class _HomePage extends StatelessWidget {
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          return Stack(
+          return Column(
             children: [
-              if (state.isLoading) const LinearProgressIndicator(),
+              Visibility(
+                visible: state.isLoading,
+                child: const LinearProgressIndicator(),
+              ),
+              DropdownMenu(
+                dropdownMenuEntries: state.sources
+                    .map<DropdownMenuEntry<Source>>((Source source) {
+                  return DropdownMenuEntry<Source>(
+                    value: source,
+                    label: source.name,
+                  );
+                }).toList(),
+              ),
               Scrollbar(
                 child: ListView.builder(
                   itemCount: state.articles.length,

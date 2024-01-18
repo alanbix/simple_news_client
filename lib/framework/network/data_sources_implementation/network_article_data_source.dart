@@ -10,6 +10,6 @@ class NetworkArticleDataSource implements RemoteArticleDataSource {
   NetworkArticleDataSource(this._newsApi);
 
   @override
-  Future<List<Article>> getTopArticles() =>
-      _newsApi.getTopArticles().then((value) => value.articles);
+  Future<List<Article>> getTopArticles(String sourceId) =>
+      _newsApi.getTopArticles(sourceId).then((response) => response.articles);
 }

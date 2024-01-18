@@ -9,7 +9,7 @@ class Article with _$Article {
     required String title,
     required String url,
     required DateTime publishedAt,
-    required Source source,
+    required ArticleSource source,
     String? author,
     String? description,
     String? urlToImage,
@@ -21,11 +21,12 @@ class Article with _$Article {
 }
 
 @freezed
-class Source with _$Source {
-  const factory Source({
+class ArticleSource with _$ArticleSource {
+  const factory ArticleSource({
     required String name,
     String? id,
-  }) = _Source;
+  }) = _ArticleSource;
 
-  factory Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
+  factory ArticleSource.fromJson(Map<String, dynamic> json) =>
+      _$ArticleSourceFromJson(json);
 }

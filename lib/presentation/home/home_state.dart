@@ -5,5 +5,7 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default(true) bool isLoading,
     @Default([]) List<Article> articles,
+    @Default([]) List<Source> sources,
+    Source? selectedSource,
   }) = _HomeState;
 }

@@ -10,6 +10,6 @@ class ArticleRepositoryImplementation implements ArticleRepository {
   ArticleRepositoryImplementation(this._remoteArticleDataSource);
 
   @override
-  Future<List<Article>> getTopArticles() =>
-      _remoteArticleDataSource.getTopArticles();
+  Future<List<Article>> getTopArticles(String sourceId) =>
+      _remoteArticleDataSource.getTopArticles(sourceId);
 }

@@ -8,5 +8,8 @@ class GetTopHeadlines {
 
   GetTopHeadlines(this._articleRepository);
 
-  Future<List<Article>> call() => _articleRepository.getTopArticles();
+  Future<List<Article>> call({
+    required String sourceId,
+  }) =>
+      _articleRepository.getTopArticles(sourceId);
 }
