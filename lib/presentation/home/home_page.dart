@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_news_client/core/domain/source.dart';
 import 'package:simple_news_client/di/di.dart';
 import 'package:simple_news_client/presentation/debouncer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'home_cubit.dart';
 
@@ -56,21 +57,6 @@ class _HomePage extends StatelessWidget {
                         });
                       },
                       leading: const Icon(Icons.search),
-                      // trailing: <Widget>[
-                      //   Tooltip(
-                      //     message: 'Change brightness mode',
-                      //     child: IconButton(
-                      //       //isSelected: isDark,
-                      //       onPressed: () {
-                      //         // setState(() {
-                      //         //   isDark = !isDark;
-                      //         // });
-                      //       },
-                      //       icon: const Icon(Icons.wb_sunny_outlined),
-                      //       selectedIcon: const Icon(Icons.brightness_2_outlined),
-                      //     ),
-                      //   )
-                      // ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -119,6 +105,11 @@ class _HomePage extends StatelessWidget {
                                 itemCount: state.articles.length,
                                 itemBuilder: (context, index) {
                                   return ListTile(
+                                    onTap: () async {
+                                      await launchUrl(
+                                        Uri.parse(state.articles[index].url),
+                                      );
+                                    },
                                     title: Text(state.articles[index].title),
                                   );
                                 },
