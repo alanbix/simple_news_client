@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simple_news_client/presentation/home/home_page.dart';
 
+import 'di/di.dart';
+
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
