@@ -6,6 +6,7 @@ class HomeState with _$HomeState {
     @Default(true) bool isLoading,
     @Default([]) List<Article> articles,
     @Default([]) List<Source> sources,
+    @Default('') String keyword,
     Source? selectedSource,
   }) = _HomeState;
 }

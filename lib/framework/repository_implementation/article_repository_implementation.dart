@@ -12,4 +12,8 @@ class ArticleRepositoryImplementation implements ArticleRepository {
   @override
   Future<List<Article>> getTopArticles(String sourceId) =>
       _remoteArticleDataSource.getTopArticles(sourceId);
+
+  @override
+  Future<List<Article>> searchArticles(String sourceId, String keyword) =>
+      _remoteArticleDataSource.searchArticles(sourceId, keyword);
 }

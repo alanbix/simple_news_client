@@ -18,6 +18,12 @@ abstract class NewsApi {
     @Query('sources') String sourceId,
   );
 
+  @GET('everything')
+  Future<GetArticlesResponse> searchArticles(
+    @Query('sources') String sourceId,
+    @Query('q') String keyword,
+  );
+
   @GET('top-headlines/sources')
   Future<GetSourcesResponse> getSources();
 }

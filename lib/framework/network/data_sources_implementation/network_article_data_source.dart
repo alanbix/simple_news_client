@@ -12,4 +12,10 @@ class NetworkArticleDataSource implements RemoteArticleDataSource {
   @override
   Future<List<Article>> getTopArticles(String sourceId) =>
       _newsApi.getTopArticles(sourceId).then((response) => response.articles);
+
+  @override
+  Future<List<Article>> searchArticles(String sourceId, String keyword) =>
+      _newsApi
+          .searchArticles(sourceId, keyword)
+          .then((response) => response.articles);
 }
