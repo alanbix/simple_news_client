@@ -4,6 +4,6 @@ abstract interface class ArticleRepository {
   Future<List<Article>> getTopArticles(String sourceId);
   Future<List<Article>> searchArticles(String sourceId, String keyword);
   Future<List<Article>> getSavedArticles();
-  Future<void> saveArticle();
-  Future<void> removeArticle();
+  Future<void> saveArticle(Article article);
+  Future<void> removeArticle(String id);
 }

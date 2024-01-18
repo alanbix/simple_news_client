@@ -27,8 +27,10 @@ class ArticleRepositoryImplementation implements ArticleRepository {
       _localArticleDataSource.getSavedArticles();
 
   @override
-  Future<void> removeArticle() => _localArticleDataSource.removeArticle();
+  Future<void> removeArticle(String id) =>
+      _localArticleDataSource.removeArticle(id);
 
   @override
-  Future<void> saveArticle() => _localArticleDataSource.saveArticle();
+  Future<void> saveArticle(Article article) =>
+      _localArticleDataSource.saveArticle(article);
 }

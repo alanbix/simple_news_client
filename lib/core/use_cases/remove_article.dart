@@ -7,5 +7,5 @@ class RemoveArticle {
 
   RemoveArticle(this._articleRepository);
 
-  Future<void> call() => _articleRepository.removeArticle();
+  Future<void> call(String id) => _articleRepository.removeArticle(id);
 }
