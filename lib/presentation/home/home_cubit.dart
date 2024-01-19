@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_news_client/core/domain/source.dart';
 import 'package:simple_news_client/core/use_cases/get_sources.dart';
 import 'package:simple_news_client/core/use_cases/get_top_headlines.dart';
+import 'package:simple_news_client/core/use_cases/save_article.dart';
 import 'package:simple_news_client/core/use_cases/search_articles.dart';
 
 part 'home_state.dart';
@@ -15,11 +16,13 @@ class HomeCubit extends Cubit<HomeState> {
   final GetTopHeadlines _getTopHeadlines;
   final GetSources _getSources;
   final SearchArticles _searchArticles;
+  final SaveArticle _saveArticle;
 
   HomeCubit(
     this._getTopHeadlines,
     this._getSources,
     this._searchArticles,
+    this._saveArticle,
   ) : super(const HomeState()) {
     _fetchSources();
   }
@@ -55,5 +58,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void toggleLoading(isLoading) {
     emit(state.copyWith(isLoading: isLoading));
+  }
+
+  Future<void> saveArticle(int index) async {
+    await _saveArticle(state.articles[index]);
+    print('Article saved!');
   }
 }

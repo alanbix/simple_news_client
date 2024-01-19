@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_news_client/presentation/home/home_page.dart';
+import 'package:simple_news_client/presentation/simple_news_nav_bar.dart';
 
 import 'di/di.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(title: _title),
+      home: const SimpleNewsNavBar(title: _title),
     );
   }
 }

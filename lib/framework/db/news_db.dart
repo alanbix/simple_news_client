@@ -42,10 +42,10 @@ class NewsDB {
   Future<List<Article>> getArticles() async {
     final db = await _getDB();
 
-    final List<Map<String, dynamic>> maps = await db.query('dogs');
+    final List<Map<String, dynamic>> maps = await db.query(_tableNameArticles);
 
     return List.generate(maps.length, (i) {
-      return jsonDecode(maps[i][_columNameItem]) as Article;
+      return Article.fromJson(jsonDecode(maps[i][_columNameItem]));
     });
   }
 
