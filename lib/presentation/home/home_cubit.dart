@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:simple_news_client/core/domain/article.dart';
@@ -26,6 +28,14 @@ class HomeCubit extends Cubit<HomeState> {
     this._saveArticle,
   ) : super(const HomeState()) {
     _fetchSources();
+    _refreshArticlesPeriodically();
+  }
+
+  void _refreshArticlesPeriodically() {
+    Timer.periodic(
+      const Duration(minutes: 5),
+      (timer) async => await searchArticles(state.keyword),
+    );
   }
 
   void _fetchSources() async {

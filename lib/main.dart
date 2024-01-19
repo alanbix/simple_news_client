@@ -29,6 +29,7 @@ void schedulePeriodicApiCall(String sourceId) {
 }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Workmanager().initialize(callbackDispatcher);
   runApp(const MyApp());
