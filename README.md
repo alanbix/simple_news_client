@@ -1,17 +1,19 @@
-# simple_news_client
+# Simple News Client
 
-A new Flutter project.
+A flutter app to read news from [News API](https://newsapi.org/).
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Installation steps: 
+1. Start by cloning this project: <code>git@github.com:alanbix/simple_news_client.git</code>
+2. Go inside the project folder: <code>cd simple_news_client</code>
+3. Install dependencies: <code>flutter pub get</code>
+4. Generate necessary classes: <code>dart run build_runner build</code>
+5. Select your device.
+6. Run the app <code>flutter run</code>
 
-A few resources to get you started if this is your first Flutter project:
+Run tests:
+1. If not already there, go inside the project folder: <code>cd simple_news_client</code>
+2. Run tests: <code>flutter test</code>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# simple_news_client
+Note: This project was developed with Flutter 3.16.7, if you have compatibility issues, you would propably want to use that version. You can use [Sidecick](https://github.com/fluttertools/sidekick) for easy switching between versions.
