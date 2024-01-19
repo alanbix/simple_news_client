@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:simple_news_client/presentation/news_scroll_bar.dart';
 
 import 'saved_articles_cubit.dart';
 
@@ -16,31 +16,26 @@ class SavedArticlesPage extends StatelessWidget {
             if (state.isLoading) const LinearProgressIndicator(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Expanded(
-                child: (state.articles.isEmpty)
-                    ? const Center(
-                        child: Text(
-                          'You do not have saved articles yet!',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      )
-                    : Scrollbar(
-                        child: ListView.builder(
-                          itemCount: state.articles.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              onTap: () async {
-                                await launchUrl(
-                                  Uri.parse(state.articles[index].url),
-                                );
-                              },
-                              title: Text(state.articles[index].title),
-                            );
-                          },
-                        ),
+              child: (state.articles.isEmpty)
+                  ? const Center(
+                      child: Text(
+                        'You do not have saved articles yet!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 24),
                       ),
-              ),
+                    )
+                  : NewsScrollBar(
+                      articles: state.articles,
+                      onBookmarkPressed: (index) async {
+                        await context.cubit.removeArticle(index).then(
+                              (_) => ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Article Removed!'),
+                                ),
+                              ),
+                            );
+                      },
+                    ),
             ),
           ],
         );

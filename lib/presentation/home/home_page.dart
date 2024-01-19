@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_news_client/core/domain/source.dart';
-import 'package:simple_news_client/di/di.dart';
 import 'package:simple_news_client/presentation/debouncer.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:simple_news_client/presentation/news_scroll_bar.dart';
 
 import 'home_cubit.dart';
 
@@ -39,13 +38,18 @@ class HomePage extends StatelessWidget {
                     },
                     leading: const Icon(Icons.search),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text('Source:'),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: DropdownMenu(
+                  const SizedBox(height: 20),
+                  if (state.sources.isNotEmpty)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Source:',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(width: 16),
+                        DropdownMenu(
                           initialSelection: state.sources.firstOrNull,
                           onSelected: (source) {
                             if (source != null) {
@@ -60,16 +64,18 @@ class HomePage extends StatelessWidget {
                             );
                           }).toList(),
                         ),
-                      ),
-                    ],
-                  ),
-                  if (state.articles.isNotEmpty)
+                      ],
+                    ),
+                  if (state.articles.isNotEmpty) ...[
+                    const SizedBox(height: 20),
                     Text(
                       state.keyword.isEmpty
                           ? 'Top headlines:'
                           : 'Search results:',
                       style: const TextStyle(fontSize: 20),
                     ),
+                  ],
+                  const SizedBox(height: 20),
                   Expanded(
                     child: (state.articles.isEmpty && state.keyword.isNotEmpty)
                         ? const Center(
@@ -79,26 +85,18 @@ class HomePage extends StatelessWidget {
                               style: TextStyle(fontSize: 24),
                             ),
                           )
-                        : Scrollbar(
-                            child: ListView.builder(
-                              itemCount: state.articles.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  onTap: () async {
-                                    await launchUrl(
-                                      Uri.parse(state.articles[index].url),
-                                    );
-                                  },
-                                  title: Text(state.articles[index].title),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.bookmark),
-                                    onPressed: () {
-                                      context.cubit.saveArticle(index);
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
+                        : NewsScrollBar(
+                            articles: state.articles,
+                            onBookmarkPressed: (index) async {
+                              await context.cubit.saveArticle(index).then(
+                                    (_) => ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Article Saved!'),
+                                      ),
+                                    ),
+                                  );
+                            },
                           ),
                   ),
                 ],
