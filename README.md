@@ -16,4 +16,7 @@ Run tests:
 1. If not already there, go inside the project folder: <code>cd simple_news_client</code>
 2. Run tests: <code>flutter test</code>
 
+## Or
+You can open the project in VS Code and do all the previous stuff from there. I have included a launch.json file in the repo so it should be ready to build and run.
+
 Note: This project was developed with Flutter 3.16.7, if you have compatibility issues, you would propably want to use that version. You can use [Sidecick](https://github.com/fluttertools/sidekick) for easy switching between versions.
