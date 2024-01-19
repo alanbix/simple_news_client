@@ -34,7 +34,11 @@ class HomeCubit extends Cubit<HomeState> {
   void _refreshArticlesPeriodically() {
     Timer.periodic(
       const Duration(minutes: 5),
-      (timer) async => await searchArticles(state.keyword),
+      (timer) async {
+        if (!isClosed) {
+          await searchArticles(state.keyword);
+        }
+      },
     );
   }
 

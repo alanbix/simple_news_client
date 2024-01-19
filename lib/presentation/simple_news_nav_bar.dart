@@ -34,7 +34,7 @@ class _SimpleNewsNavBarState extends State<SimpleNewsNavBar> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber,
+        indicatorColor: Theme.of(context).colorScheme.inversePrimary,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
@@ -43,7 +43,8 @@ class _SimpleNewsNavBarState extends State<SimpleNewsNavBar> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.bookmark)),
+            selectedIcon: Icon(Icons.bookmark),
+            icon: Icon(Icons.bookmark_outline),
             label: 'Saved',
           ),
         ],

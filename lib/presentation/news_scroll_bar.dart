@@ -40,15 +40,11 @@ class NewsScrollBar extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: const TextStyle(fontSize: 14),
                   ),
-                  trailing: SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: IconButton(
-                      icon: const Icon(Icons.bookmark),
-                      onPressed: () {
-                        onBookmarkPressed(index);
-                      },
-                    ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.bookmark),
+                    onPressed: () {
+                      onBookmarkPressed(index);
+                    },
                   ),
                 ),
               ),

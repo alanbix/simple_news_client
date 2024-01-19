@@ -11,6 +11,7 @@ const _sourceIdKey = 'sourceId';
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     if (task == _fetchTopArticleTask) {
+      print('Background task initiated');
       final newsApi = getIt<NewsApi>();
       final articlesResponse =
           await newsApi.getTopArticles(inputData?[_sourceIdKey]);
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const SimpleNewsNavBar(title: _title),
     );
   }
