@@ -7,6 +7,7 @@ import 'package:simple_news_client/core/use_cases/get_sources.dart';
 import 'package:simple_news_client/core/use_cases/get_top_headlines.dart';
 import 'package:simple_news_client/core/use_cases/save_article.dart';
 import 'package:simple_news_client/core/use_cases/search_articles.dart';
+import 'package:simple_news_client/main.dart';
 
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';
@@ -31,6 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
     final sources = await _getSources();
     emit(state.copyWith(sources: sources));
 
+    schedulePeriodicApiCall(sources.first.id);
     await setSelectedSource(sources.first);
   }
 
